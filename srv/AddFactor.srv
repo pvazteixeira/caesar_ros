@@ -1,0 +1,5 @@
+string id0
+string id1
+geometry_msgs/PoseWithCovariance measurement
+---
+string status
