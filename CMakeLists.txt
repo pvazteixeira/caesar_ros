@@ -13,6 +13,19 @@ find_package(catkin REQUIRED
   geometry_msgs
   )
 
+
+find_package(PkgConfig)
+pkg_check_modules(PC_ZeroMQ QUIET zmq)
+find_path(ZeroMQ_INCLUDE_DIR
+        NAMES zmq.hpp
+        PATHS ${PC_ZeroMQ_INCLUDE_DIRS}
+        )
+
+find_library(ZeroMQ_LIBRARY
+        NAMES zmq
+        PATHS ${PC_ZeroMQ_LIBRARY_DIRS}
+        )
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -119,6 +132,7 @@ catkin_package(
 include_directories(
  graff_cpp/include
  ${catkin_INCLUDE_DIRS}
+${ZeroMQ_INCLUDE_DIR}
 )
 
 ## Declare a C++ library
@@ -149,6 +163,7 @@ add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catk
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
+  ${ZeroMQ_LIBRARY}
 )
 
 #############

@@ -20,7 +20,7 @@ class Server {
   // private:
   Server(){}; // can't touch this
 public:
-  Server(const std::string &endpoint, const std::string &session)
+  Server(const std::string &address, const std::string &session)
       : session_(session) {
 
     // setup ROS side: advertise services
@@ -32,7 +32,7 @@ public:
         "GetEstimate", &Server::getEstimate, this);
 
     // setup Caesar side
-    endpoint_.Connect("tcp://127.0.0.1:5555");
+    endpoint_.Connect(address);
 
     // TODO: register robot, session
   };
@@ -43,7 +43,7 @@ public:
     geometry_msgs::Quaternion zo = req.measurement.pose.orientation;
     std::vector<double> mu = {zp.x, zp.y, zp.z, zo.x, zo.y, zo.z, zo.w};
     std::vector<double> cov(req.measurement.covariance.begin(),
-                            req.measurement.covariance.end()); 
+                            req.measurement.covariance.end());
     graff::Normal *z = new graff::Normal(mu, cov);
 
     std::vector<std::string> nodes{req.id0, req.id1};
@@ -64,12 +64,17 @@ public:
                    caesar_ros::GetEstimate::Response &res) {
     // retrieve and send estimate from latest solution
     auto rep = graff::GetVarMAPMean(endpoint_, session_, req.query);
-    // TODO: some parsing to fill out response (geometry_msgs::PoseWithCovariance)
+    // TODO: some parsing to fill out response
+    // (geometry_msgs::PoseWithCovariance)
     return (true);
   }
 
   void solver(void) {
-    while (true) {
+    ros::Rate rate(1);
+    while (ros::ok()) {
+      // TODO fetch the latest estimates from the endpoint and cache them
+      // locally
+      rate.sleep();
     }
   }
 
@@ -86,6 +91,9 @@ private:
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "caesar_server");
+
+  std::string ep_address("tcp://127.0.0.1:5555"), ep_session("ros-test");
+  Server caesar_server(ep_address, ep_session );
 
   ros::Rate rate(10);
   while (ros::ok()) {
