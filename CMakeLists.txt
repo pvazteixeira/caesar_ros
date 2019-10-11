@@ -68,8 +68,10 @@ find_package(catkin REQUIRED
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-AddFactor.srv
-AddNode.srv
+AddFactorXYH.srv
+AddFactorZPR.srv
+AddPrior3D.srv
+AddVariable.srv
 GetEstimate.srv
 )
 
