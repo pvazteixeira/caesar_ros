@@ -8,23 +8,22 @@ project(caesar_ros)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED
-  roscpp
   message_generation
   geometry_msgs
   )
 
 
-find_package(PkgConfig)
-pkg_check_modules(PC_ZeroMQ QUIET zmq)
-find_path(ZeroMQ_INCLUDE_DIR
-        NAMES zmq.hpp
-        PATHS ${PC_ZeroMQ_INCLUDE_DIRS}
-        )
+#find_package(PkgConfig)
+#pkg_check_modules(PC_ZeroMQ QUIET zmq)
+#find_path(ZeroMQ_INCLUDE_DIR
+#        NAMES zmq.hpp
+#        PATHS ${PC_ZeroMQ_INCLUDE_DIRS}
+#        )
 
-find_library(ZeroMQ_LIBRARY
-        NAMES zmq
-        PATHS ${PC_ZeroMQ_LIBRARY_DIRS}
-        )
+#find_library(ZeroMQ_LIBRARY
+#        NAMES zmq
+#        PATHS ${PC_ZeroMQ_LIBRARY_DIRS}
+#        )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -130,9 +129,9 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- graff_cpp/include
+# graff_cpp/include
  ${catkin_INCLUDE_DIRS}
-${ZeroMQ_INCLUDE_DIR}
+#${ZeroMQ_INCLUDE_DIR}
 )
 
 ## Declare a C++ library
@@ -148,7 +147,7 @@ ${ZeroMQ_INCLUDE_DIR}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/server/main.cpp)
+#add_executable(${PROJECT_NAME}_node src/server/main.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -158,13 +157,13 @@ add_executable(${PROJECT_NAME}_node src/server/main.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
-  ${catkin_LIBRARIES}
-  ${ZeroMQ_LIBRARY}
-)
+#target_link_libraries(${PROJECT_NAME}_node
+#  ${catkin_LIBRARIES}
+#  ${ZeroMQ_LIBRARY}
+#)
 
 #############
 ## Install ##
