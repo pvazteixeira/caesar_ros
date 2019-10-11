@@ -1,0 +1,5 @@
+string id
+geometry_msgs/Vector3 measurement  # z,p,r
+float64[9] covariance
+---
+string status

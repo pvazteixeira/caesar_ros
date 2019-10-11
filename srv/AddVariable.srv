@@ -1,0 +1,7 @@
+# # Add node operation
+string id    # e.g. "x0"
+string type  # e.g. "Pose3", "Pose2", "Point3"
+---
+string status
+
+# status e.g. JSON serialized response for addVariable!, see DFG #134

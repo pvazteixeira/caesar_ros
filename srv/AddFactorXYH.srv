@@ -1,0 +1,6 @@
+string id0
+string id1
+geometry_msgs/Vector3 measurement  # x,y,h
+float64[9] covariance
+---
+string status
